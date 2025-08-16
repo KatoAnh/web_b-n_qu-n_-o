@@ -17164,7 +17164,7 @@ namespace Illuminate\Support\Facades {
                         return $instance->usePreloadTagAttributes($attributes);
         }
                     /**
-         * Generate React refresh runtime script.
+         * Generate  refresh runtime script.
          *
          * @return \Illuminate\Support\HtmlString|void 
          * @static 
