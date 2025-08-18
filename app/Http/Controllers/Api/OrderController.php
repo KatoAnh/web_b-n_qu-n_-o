@@ -7,7 +7,6 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\ProductVariant;
 use App\Mail\OrderPlaced;
-use Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +17,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cart;
 use App\Models\CartItem;
-use App\Models\stock;
+use App\Models\Stock;
 
 // RealTime
 use App\Events\ProductStockUpdated;
@@ -615,7 +614,7 @@ class OrderController extends Controller
                     }
 
                     // Lấy tồn kho thực tế từ DB
-                    $stock = Stock::where('product_variant_id', $variantId)->first();
+                    $stock = \App\Models\Stock::where('product_variant_id', $variantId)->first();
 
                     if (!$stock) {
                         return response()->json([
