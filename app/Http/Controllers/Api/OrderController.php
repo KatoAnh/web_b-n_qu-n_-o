@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\ProductVariant;
 use App\Mail\OrderPlaced;
+use Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cart;
 use App\Models\CartItem;
-use App\Models\Stock;
+use App\Models\stock;
 
 // RealTime
 use App\Events\ProductStockUpdated;
@@ -614,7 +615,7 @@ class OrderController extends Controller
                     }
 
                     // Lấy tồn kho thực tế từ DB
-                    $stock = \App\Models\Stock::where('product_variant_id', $variantId)->first();
+                    $stock = Stock::where('product_variant_id', $variantId)->first();
 
                     if (!$stock) {
                         return response()->json([
@@ -975,6 +976,29 @@ class OrderController extends Controller
         }
     }
 
+    public function verifyReturn(Request $request)
+    {
+        $orderId = $request->query('orderId');
+        $user = auth()->user();
+
+        if (!$orderId) {
+            return response()->json(['success' => false, 'message' => 'Thiếu orderId'], 400);
+        }
+
+        $order = Order::with(['user', 'items.productVariant.product', 'items.productVariant.color', 'items.productVariant.size'])
+            ->where('id', $orderId)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if (!$order) {
+            return response()->json(['success' => false, 'message' => 'Không tìm thấy đơn hàng'], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $order
+        ]);
+    }
     /**
      * Cho phép người dùng tiếp tục thanh toán VNPay nếu đơn hàng chưa được thanh toán
      */

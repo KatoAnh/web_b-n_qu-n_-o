@@ -41,6 +41,7 @@
         },
         "classmap": [
             "database/seeders"
+            
         ]
     },
     "autoload-dev": {
@@ -49,9 +50,6 @@
         }
     },
     "scripts": {
-         "post-install-cmd": [
-        "@php artisan storage:link || true"
-        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
