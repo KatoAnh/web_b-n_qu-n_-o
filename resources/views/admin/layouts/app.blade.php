@@ -294,6 +294,12 @@
 <script src="{{ asset('js/notification_RealTime.js') }}"></script>
 <script src="{{ asset('js/fail.js') }}"></script>
 
+<script src="{{ asset('js/message_list_user.js') }}"></script>
+
+
+
+<script></script>
+
 
 {{-- chatbox --}}
 
@@ -301,7 +307,7 @@
     window.currentUserId = {!! json_encode(Auth::id()) !!};
 </script>
 
-<script src="{{ asset('js/chat/typing.js') }}"></script>
+<script src="{{ asset('js/typing.js') }}"></script>
 
 
 {{-- chatbox --}}

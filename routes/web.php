@@ -38,7 +38,9 @@ use App\Models\Order;
 */
 
 
-
+Route::fallback(function () {
+    return response()->view('notFound.404', [], 404);
+});
 
 
 // Trang chủ
