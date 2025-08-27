@@ -615,7 +615,7 @@ class OrderController extends Controller
                     }
 
                     // Lấy tồn kho thực tế từ DB
-                    $stock = Stock::where('product_variant_id', $variantId)->first();
+                    $stock = \App\Models\Stock::where('product_variant_id', $variantId)->first();
 
                     if (!$stock) {
                         return response()->json([
